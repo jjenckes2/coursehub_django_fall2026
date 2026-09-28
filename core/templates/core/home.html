@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page_title }} | CourseHub</title>
+  <link rel="stylesheet" href="{% static 'core/css/site.css' %}">
+  <script src="{% static 'core/js/site.js' %}" defer></script>
+</head>
+<body>
+  <header>
+    <p class="site-name">CourseHub</p>
+    <nav aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/assignments">Assignments</a>
+      <a href="/resources">Resources</a>
+    </nav>
+  </header>
+  <main>
+    <!--add here -->
+
+    <button id="tip-button" type="button"
+            aria-controls="study-tip" aria-expanded="false">
+      Show study tip
+    </button>
+    <p id="study-tip" hidden>
+      Trace the request through URLs, the view, and this template.
+    </p>
+  </main>
+</body>
+</html>

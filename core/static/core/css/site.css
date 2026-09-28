@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  background: #ffffff;
+  color: #111318;
+}
+
+header, main, footer {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.site-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+a {
+  color: #165dcc;
+}
+
+.notice {
+  padding: 1rem;
+  background: #e9f5fc;
+  border-left: 0.25rem solid #165dcc;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
