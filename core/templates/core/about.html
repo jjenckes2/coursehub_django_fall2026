@@ -20,27 +20,17 @@
   </header>
   <main>
     <!--add here -->
-    <h1>{{ course_name }}</h1>
-    {% if announcement %}
-      <p class="notice">{{ announcement }}</p>
-    {% endif %}
+    <h1>{{ page_title }}</h1>
 
-    <h2>Today's Topics</h2>
+    <h2>Who uses CourseHub</h2>
     <ul>
-      {% for topic in topics %}
-        <li>{{ topic }}</li>
+      {% for item in items %}
+        <li>{{ item }}</li>
       {% empty %}
-        <li>No topics yet</li>
+        <li>No users yet</li>
       {% endfor %}
     </ul>
 
-    <button id="tip-button" type="button"
-            aria-controls="study-tip" aria-expanded="false">
-      Show study tip
-    </button>
-    <p id="study-tip" hidden>
-      Trace the request through URLs, the view, and this template.
-    </p>
   </main>
 </body>
 </html>
