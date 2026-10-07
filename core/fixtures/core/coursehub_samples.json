@@ -1,0 +1,35 @@
+[
+  {
+    "model": "core.assignment",
+    "pk": 1001,
+    "fields": {
+      "title": "Review model fields",
+      "description": "Explain the fields in our practice model.",
+      "due_date": "2026-10-08",
+      "completed": false,
+      "estimated_minutes": 20
+    }
+  },
+  {
+    "model": "core.assignment",
+    "pk": 1002,
+    "fields": {
+      "title": "Practice QuerySets",
+      "description": "Compare filter and order_by in the Django shell.",
+      "due_date": "2026-10-09",
+      "completed": false,
+      "estimated_minutes": 45
+    }
+  },
+  {
+    "model": "core.assignment",
+    "pk": 1003,
+    "fields": {
+      "title": "Check shared navigation",
+      "description": "Visit each named route.",
+      "due_date": "2026-10-07",
+      "completed": true,
+      "estimated_minutes": 15
+    }
+  }
+]

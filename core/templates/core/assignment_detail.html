@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ page_title }} | CourseHub{% endblock %}
+
+{% block content %}
+  <p><a href="{% url 'core:assignments' %}">Back to unfinished assignments</a></p>
+
+  <article>
+    <h1>{{ assignment.title }}</h1>
+
+    <dl>
+      <dt>Due date</dt>
+      <dd>{{ assignment.due_date|date:"M j, Y" }}</dd>
+
+      <dt>Estimated time</dt>
+      <dd>{{ assignment.estimated_minutes }} minutes</dd>
+
+      <dt>Status</dt>
+      <dd>
+        {% if assignment.completed %}
+          Completed
+        {% else %}
+          Not completed
+        {% endif %}
+      </dd>
+    </dl>
+
+    <h2>Description</h2>
+    {% if assignment.description %}
+      <p>{{ assignment.description }}</p>
+    {% else %}
+      <p>No description yet.</p>
+    {% endif %}
+  </article>
+{% endblock %}

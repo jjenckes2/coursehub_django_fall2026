@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ page_title }} | CourseHub{% endblock %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+  <p>Unfinished: {{ assignment_count }}</p>
+
+  <ul>
+    {% for assignment in assignments %}
+      <li>
+        <h2>
+          <a href="{% url 'core:assignment_detail' pk=assignment.pk %}">
+            {{ assignment.title }}
+          </a>
+        </h2>
+        <p>
+          Due {{ assignment.due_date|date:"M j, Y" }}<br>
+          Estimated time: {{ assignment.estimated_minutes }} minutes
+        </p>
+      </li>
+    {% empty %}
+      <li>No unfinished practice assignments.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

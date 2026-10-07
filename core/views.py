@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
+from .models import Assignment
 
 def home(request):
    context = {
@@ -17,7 +18,9 @@ def about(request):
         "description": "CourseHub helps us keep our class organized",
         "items": ["Students", "Instructor"]
     }
-    return render(request, "core/about.html", context)
+    return render(request, "core/page.html", context)
+
+#add assignment view and assignment detail
 
 def resources(request):
     context = {
@@ -25,4 +28,4 @@ def resources(request):
         "description": "Places to continue learning.",
         "items": ["Django documentation", "Class code guides"],
     }
-    return render(request, "core/resources.html", context)
+    return render(request, "core/page.html", context)
