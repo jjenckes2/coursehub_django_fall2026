@@ -1,5 +1,12 @@
+{% with current=request.resolver_match.url_name %}
 <nav aria-label="Main navigation">
-  <a href="{% url 'core:home' %}">Home</a>
-  <a href="{% url 'core:about' %}">About</a>
-  <a href="{% url 'core:resources' %}">Resources</a>
+  <a href="{% url 'core:home' %}"
+     {% if current == "home" %}aria-current="page"{% endif %}>Home</a>
+  <a href="{% url 'core:about' %}"
+     {% if current == "about" %}aria-current="page"{% endif %}>About</a>
+  <a href="{% url 'core:assignments' %}"
+     {% if current == "assignments" or current == "assignments_by_status" or current == "assignment_detail" %}aria-current="true"{% endif %}>Assignments</a>
+  <a href="{% url 'core:resources' %}"
+     {% if current == "resources" %}aria-current="page"{% endif %}>Resources</a>
 </nav>
+{% endwith %}

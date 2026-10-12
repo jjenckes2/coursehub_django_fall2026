@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+
+{% block title %}Page not found | CourseHub{% endblock %}
+
+{% block content %}
+  <p class="notice">404 · Page not found</p>
+  <h1>We could not find that page.</h1>
+  <p>The address may be incorrect, or the assignment may no longer exist.</p>
+  <p>
+    <a href="{% url 'core:assignments_by_status' status='all' %}">
+      Browse all assignments
+    </a>
+    or <a href="{% url 'core:home' %}">return home</a>.
+  </p>
+{% endblock %}

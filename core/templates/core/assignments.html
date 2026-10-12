@@ -4,9 +4,10 @@
 
 {% block content %}
   <h1>{{ page_title }}</h1>
-  <p>Unfinished: {{ assignment_count }}</p>
+  {% include "core/includes/assignment_filters.html" %}
+  <p>Showing {{ assignment_count }} assignment{{ assignment_count|pluralize }}.</p>
 
-  <ul>
+  <ul class="assignment-list">
     {% for assignment in assignments %}
       <li>
         <h2>
@@ -16,11 +17,12 @@
         </h2>
         <p>
           Due {{ assignment.due_date|date:"M j, Y" }}<br>
-          Estimated time: {{ assignment.estimated_minutes }} minutes
+          Estimated time: {{ assignment.estimated_minutes }} minutes<br>
+          Status: {% if assignment.completed %}Completed{% else %}Not completed{% endif %}
         </p>
       </li>
     {% empty %}
-      <li>No unfinished practice assignments.</li>
+      <li>{{ empty_message }}</li>
     {% endfor %}
   </ul>
 {% endblock %}

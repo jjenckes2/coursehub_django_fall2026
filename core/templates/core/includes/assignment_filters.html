@@ -1,0 +1,14 @@
+<nav class="assignment-filters" aria-label="Assignment status">
+  <a href="{% url 'core:assignments_by_status' status='unfinished' %}"
+     {% if active_status == "unfinished" %}aria-current="page"{% endif %}>
+    Unfinished
+  </a>
+  <a href="{% url 'core:assignments_by_status' status='completed' %}"
+     {% if active_status == "completed" %}aria-current="page"{% endif %}>
+    Completed
+  </a>
+  <a href="{% url 'core:assignments_by_status' status='all' %}"
+     {% if active_status == "all" %}aria-current="page"{% endif %}>
+    All
+  </a>
+</nav>

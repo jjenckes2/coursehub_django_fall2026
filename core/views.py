@@ -1,26 +1,72 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+
 from .models import Assignment
 
+
 def home(request):
-   context = {
-       "page_title": "Home",
-       "course_name": "CSCE A490 WebDev",
-       "announcement": "On <strong>Wednesday</strong> will cover shared templates",
-       "topics": ["Templates", "Context", "Static Files"],
-   }
-   return render(request, "core/home.html", context)
+    context = {
+        "page_title": "Home",
+        "course_name": "CSCE A490 WebDev",
+        "announcement": "Browse assignment states and open a record's details.",
+        "topics": ["Named routes", "Assignment states", "404 responses"],
+    }
+    return render(request, "core/home.html", context)
+
 
 def about(request):
     context = {
         "page_title": "About CourseHub",
-        "course_name": "CSCE A490 WebDev",
-        "description": "CourseHub helps us keep our class organized",
-        "items": ["Students", "Instructor"]
+        "description": "CourseHub helps us organize our class work.",
+        "items": ["Students", "Instructor"],
     }
     return render(request, "core/page.html", context)
 
-#add assignment view and assignment detail
+
+def assignments(request, status="unfinished"):
+    states = {
+        "unfinished": (
+            "Unfinished practice assignments",
+            "No unfinished practice assignments.",
+        ),
+        "completed": (
+            "Completed practice assignments",
+            "No completed practice assignments.",
+        ),
+        "all": (
+            "All practice assignments",
+            "No practice assignments yet.",
+        ),
+    }
+    if status not in states:
+        raise Http404("Unknown assignment status.")
+
+    tasks = Assignment.objects.all()
+    if status == "unfinished":
+        tasks = tasks.filter(completed=False)
+    elif status == "completed":
+        tasks = tasks.filter(completed=True)
+    tasks = tasks.order_by("due_date", "pk")
+
+    page_title, empty_message = states[status]
+    context = {
+        "page_title": page_title,
+        "assignments": tasks,
+        "assignment_count": tasks.count(),
+        "active_status": status,
+        "empty_message": empty_message,
+    }
+    return render(request, "core/assignments.html", context)
+
+
+def assignment_detail(request, pk):
+    task = get_object_or_404(Assignment, pk=pk)
+    context = {
+        "page_title": task.title,
+        "assignment": task,
+    }
+    return render(request, "core/assignment_detail.html", context)
+
 
 def resources(request):
     context = {
