@@ -4,6 +4,7 @@
 
 {% block content %}
   <h1>{{ page_title }}</h1>
+  <p><a href="{% url 'core:assignment_create' %}">Add assignment</a></p>
   {% include "core/includes/assignment_filters.html" %}
   <p>Showing {{ assignment_count }} assignment{{ assignment_count|pluralize }}.</p>
 

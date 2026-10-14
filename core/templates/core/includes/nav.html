@@ -5,7 +5,7 @@
   <a href="{% url 'core:about' %}"
      {% if current == "about" %}aria-current="page"{% endif %}>About</a>
   <a href="{% url 'core:assignments' %}"
-     {% if current == "assignments" or current == "assignments_by_status" or current == "assignment_detail" %}aria-current="true"{% endif %}>Assignments</a>
+     {% if current == "assignments" or current == "assignments_by_status" or current == "assignment_detail" or current == "assignment_create" %}aria-current="true"{% endif %}>Assignments</a>
   <a href="{% url 'core:resources' %}"
      {% if current == "resources" %}aria-current="page"{% endif %}>Resources</a>
 </nav>

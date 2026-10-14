@@ -76,3 +76,74 @@ button {
 }
 
 .skip-link:focus { transform: translateY(0); }
+
+.assignment-form {
+  max-width: 42rem;
+}
+
+.assignment-form .form-field {
+  margin-block: 1.5rem;
+}
+
+.assignment-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+.assignment-form input:not([type="hidden"]),
+.assignment-form textarea {
+  display: block;
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #59616b;
+  border-radius: 0.2rem;
+  background: #ffffff;
+  color: #111318;
+  font: inherit;
+}
+
+.assignment-form textarea {
+  resize: vertical;
+}
+
+.assignment-form .help-text {
+  margin-block: 0.35rem;
+  color: #59616b;
+}
+
+.assignment-form .form-errors,
+.assignment-form .errorlist {
+  padding: 0.8rem 1rem;
+  border-left: 0.25rem solid #165dcc;
+  background: #e9f5fc;
+  color: #111318;
+}
+
+.assignment-form .errorlist {
+  padding-left: 2rem;
+}
+
+.assignment-form [aria-invalid="true"] {
+  border: 2px solid #165dcc;
+}
+
+.assignment-form .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 1.5rem;
+}
+
+.assignment-form button[type="submit"] {
+  border: 2px solid #165dcc;
+  background: #165dcc;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.assignment-form :is(input, textarea, button, a):focus-visible {
+  outline: 3px solid #111318;
+  outline-offset: 3px;
+}

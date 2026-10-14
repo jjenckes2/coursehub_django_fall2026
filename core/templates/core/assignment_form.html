@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ page_title }} | CourseHub{% endblock %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+  <p>New assignments start unfinished. Description is optional.</p>
+
+  <form class="assignment-form" method="post"
+        action="{% url 'core:assignment_create' %}" novalidate>
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <div class="form-errors">
+        <p><strong>Please correct the errors below.</strong></p>
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">
+          {{ field.label }}
+          {% if field.field.required %}(required){% else %}(optional){% endif %}
+        </label>
+        {{ field }}
+        {% if field.help_text %}
+          <p class="help-text" id="{{ field.auto_id }}_helptext">
+            {{ field.help_text }}
+          </p>
+        {% endif %}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+
+    <div class="form-actions">
+      <button type="submit">Save assignment</button>
+      <a href="{% url 'core:assignments_by_status' status='all' %}">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

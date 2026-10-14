@@ -1,6 +1,8 @@
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_http_methods
 
+from .forms import AssignmentForm
 from .models import Assignment
 
 
@@ -8,8 +10,8 @@ def home(request):
     context = {
         "page_title": "Home",
         "course_name": "CSCE A490 WebDev",
-        "announcement": "Browse assignment states and open a record's details.",
-        "topics": ["Named routes", "Assignment states", "404 responses"],
+        "announcement": "Create an assignment, then follow it to its detail page.",
+        "topics": ["ModelForms", "GET and POST", "Validation", "CSRF"],
     }
     return render(request, "core/home.html", context)
 
@@ -66,6 +68,23 @@ def assignment_detail(request, pk):
         "assignment": task,
     }
     return render(request, "core/assignment_detail.html", context)
+
+
+@require_http_methods(["GET", "POST"])
+def assignment_create(request):
+    if request.method == "POST":
+        form = AssignmentForm(request.POST)
+        if form.is_valid():
+            task = form.save()
+            return redirect("core:assignment_detail", pk=task.pk)
+    else:
+        form = AssignmentForm()
+
+    context = {
+        "page_title": "Add assignment",
+        "form": form,
+    }
+    return render(request, "core/assignment_form.html", context)
 
 
 def resources(request):

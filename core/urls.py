@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("about/", views.about, name="about"),
     path("assignments/", views.assignments, name="assignments"),
+    path("assignments/new/", views.assignment_create, name="assignment_create"),
     path(
         "assignments/status/<slug:status>/",
         views.assignments,
