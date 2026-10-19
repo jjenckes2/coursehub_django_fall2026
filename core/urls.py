@@ -19,5 +19,15 @@ urlpatterns = [
         views.assignment_detail,
         name="assignment_detail",
     ),
+    path(
+        "assignments/<int:pk>/edit/",
+        views.assignment_update,
+        name="assignment_update",
+    ),
+    path(
+        "assignments/<int:pk>/delete/",
+        views.assignment_delete,
+        name="assignment_delete",
+    ),
     path("resources/", views.resources, name="resources"),
 ]

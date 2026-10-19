@@ -32,3 +32,8 @@ class AssignmentForm(forms.ModelForm):
         if not 1 <= minutes <= 480:
             raise forms.ValidationError("Enter a duration from 1 to 480 minutes.")
         return minutes
+
+
+class AssignmentUpdateForm(AssignmentForm):
+    class Meta(AssignmentForm.Meta):
+        fields = AssignmentForm.Meta.fields + ("completed",)

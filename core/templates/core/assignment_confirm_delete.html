@@ -1,0 +1,17 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ page_title }} | CourseHub{% endblock %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+  <p>Delete <strong>{{ assignment.title }}</strong>?</p>
+  <p>This removes the record from this practice database. There is no undo button.</p>
+  <form class="assignment-form" method="post"
+        action="{% url 'core:assignment_delete' pk=assignment.pk %}">
+    {% csrf_token %}
+    <div class="form-actions">
+      <button type="submit">Yes, delete assignment</button>
+      <a href="{% url 'core:assignment_detail' pk=assignment.pk %}">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

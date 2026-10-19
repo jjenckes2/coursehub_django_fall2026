@@ -28,5 +28,9 @@
     {% else %}
       <p>No description yet.</p>
     {% endif %}
+    <p class="record-actions">
+      <a href="{% url 'core:assignment_update' pk=assignment.pk %}">Edit assignment</a>
+      <a href="{% url 'core:assignment_delete' pk=assignment.pk %}">Delete assignment</a>
+    </p>
   </article>
 {% endblock %}

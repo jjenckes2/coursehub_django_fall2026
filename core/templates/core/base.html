@@ -15,6 +15,15 @@
     {% include "core/includes/nav.html" %}
   </header>
   <main id="main-content" tabindex="-1">
+    {% if messages %}
+      <ul class="messages" aria-label="Notifications">
+        {% for message in messages %}
+          <li class="message{% if message.tags %} {{ message.tags }}{% endif %}">
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
   <footer>

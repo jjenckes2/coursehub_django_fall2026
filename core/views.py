@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
-from .forms import AssignmentForm
+from .forms import AssignmentForm, AssignmentUpdateForm
 from .models import Assignment
 
 
@@ -10,8 +12,8 @@ def home(request):
     context = {
         "page_title": "Home",
         "course_name": "CSCE A490 WebDev",
-        "announcement": "Create an assignment, then follow it to its detail page.",
-        "topics": ["ModelForms", "GET and POST", "Validation", "CSRF"],
+        "announcement": "Create, read, update, and delete practice assignments.",
+        "topics": ["CRUD", "Editing", "Safe deletion", "Messages"],
     }
     return render(request, "core/home.html", context)
 
@@ -76,6 +78,7 @@ def assignment_create(request):
         form = AssignmentForm(request.POST)
         if form.is_valid():
             task = form.save()
+            messages.success(request, "Assignment created.")
             return redirect("core:assignment_detail", pk=task.pk)
     else:
         form = AssignmentForm()
@@ -83,8 +86,50 @@ def assignment_create(request):
     context = {
         "page_title": "Add assignment",
         "form": form,
+        "form_action": reverse("core:assignment_create"),
+        "cancel_url": reverse("core:assignments_by_status", kwargs={"status": "all"}),
+        "submit_label": "Save assignment",
+        "form_description": "New assignments start unfinished. Description is optional.",
     }
     return render(request, "core/assignment_form.html", context)
+
+
+@require_http_methods(["GET", "POST"])
+def assignment_update(request, pk):
+    task = get_object_or_404(Assignment, pk=pk)
+    if request.method == "POST":
+        form = AssignmentUpdateForm(request.POST, instance=task)
+        if form.is_valid():
+            task = form.save()
+            messages.success(request, "Assignment updated.")
+            return redirect("core:assignment_detail", pk=task.pk)
+    else:
+        form = AssignmentUpdateForm(instance=task)
+
+    context = {
+        "page_title": "Edit assignment",
+        "form": form,
+        "form_action": reverse("core:assignment_update", kwargs={"pk": task.pk}),
+        "cancel_url": reverse("core:assignment_detail", kwargs={"pk": task.pk}),
+        "submit_label": "Save changes",
+        "form_description": "Update the details or change the completion status.",
+    }
+    return render(request, "core/assignment_form.html", context)
+
+
+@require_http_methods(["GET", "POST"])
+def assignment_delete(request, pk):
+    task = get_object_or_404(Assignment, pk=pk)
+    if request.method == "POST":
+        task.delete()
+        messages.success(request, "Assignment deleted.")
+        return redirect("core:assignments_by_status", status="all")
+
+    context = {
+        "page_title": "Delete assignment",
+        "assignment": task,
+    }
+    return render(request, "core/assignment_confirm_delete.html", context)
 
 
 def resources(request):

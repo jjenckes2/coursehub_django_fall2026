@@ -147,3 +147,30 @@ button {
   outline: 3px solid #111318;
   outline-offset: 3px;
 }
+
+.assignment-form input[type="checkbox"] {
+  display: inline-block;
+  width: 1.2rem;
+  height: 1.2rem;
+  padding: 0;
+  accent-color: #165dcc;
+}
+
+.record-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.messages {
+  padding: 0;
+  list-style: none;
+}
+
+.message {
+  margin-block: 1rem;
+  padding: 0.8rem 1rem;
+  border-left: 0.25rem solid #165dcc;
+  background: #e9f5fc;
+  color: #111318;
+}

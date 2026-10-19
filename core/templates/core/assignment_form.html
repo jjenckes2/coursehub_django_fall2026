@@ -4,10 +4,10 @@
 
 {% block content %}
   <h1>{{ page_title }}</h1>
-  <p>New assignments start unfinished. Description is optional.</p>
+  <p>{{ form_description }}</p>
 
   <form class="assignment-form" method="post"
-        action="{% url 'core:assignment_create' %}" novalidate>
+        action="{{ form_action }}" novalidate>
     {% csrf_token %}
 
     {% if form.errors %}
@@ -34,8 +34,8 @@
     {% endfor %}
 
     <div class="form-actions">
-      <button type="submit">Save assignment</button>
-      <a href="{% url 'core:assignments_by_status' status='all' %}">Cancel</a>
+      <button type="submit">{{ submit_label }}</button>
+      <a href="{{ cancel_url }}">Cancel</a>
     </div>
   </form>
 {% endblock %}
