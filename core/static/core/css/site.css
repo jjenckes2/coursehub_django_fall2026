@@ -174,3 +174,31 @@ button {
   background: #e9f5fc;
   color: #111318;
 }
+
+/* added for Oct 21 lecture: align account navigation and style the logout button. */
+nav {
+  align-items: center;
+}
+
+.signed-in-user {
+  font-size: 0.95rem;
+}
+
+.logout-form {
+  margin: 0;
+}
+
+.logout-form button {
+  padding: 0.35rem 0.65rem;
+  border: 2px solid #165dcc;
+  border-radius: 0.2rem;
+  background: #ffffff;
+  color: #165dcc;
+  font: inherit;
+  font-weight: 700;
+}
+
+.logout-form button:focus-visible {
+  outline: 3px solid #111318;
+  outline-offset: 3px;
+}

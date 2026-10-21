@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required  # added for Oct 21 lecture
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -12,8 +13,9 @@ def home(request):
     context = {
         "page_title": "Home",
         "course_name": "CSCE A490 WebDev",
-        "announcement": "Create, read, update, and delete practice assignments.",
-        "topics": ["CRUD", "Editing", "Safe deletion", "Messages"],
+        # added for Oct 21 lecture: introduce authentication and sessions.
+        "announcement": "Browse assignments, then log in to make changes.",
+        "topics": ["Login", "Sessions", "Protected views", "Logout"],
     }
     return render(request, "core/home.html", context)
 
@@ -72,6 +74,8 @@ def assignment_detail(request, pk):
     return render(request, "core/assignment_detail.html", context)
 
 
+# added for Oct 21 lecture: require login before creating an assignment.
+@login_required
 @require_http_methods(["GET", "POST"])
 def assignment_create(request):
     if request.method == "POST":
@@ -94,6 +98,8 @@ def assignment_create(request):
     return render(request, "core/assignment_form.html", context)
 
 
+# added for Oct 21 lecture: require login before looking up or editing an assignment.
+@login_required
 @require_http_methods(["GET", "POST"])
 def assignment_update(request, pk):
     task = get_object_or_404(Assignment, pk=pk)
@@ -117,6 +123,8 @@ def assignment_update(request, pk):
     return render(request, "core/assignment_form.html", context)
 
 
+# added for Oct 21 lecture: require login before confirming or deleting an assignment.
+@login_required
 @require_http_methods(["GET", "POST"])
 def assignment_delete(request, pk):
     task = get_object_or_404(Assignment, pk=pk)

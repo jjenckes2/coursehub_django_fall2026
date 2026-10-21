@@ -4,7 +4,13 @@
 
 {% block content %}
   <h1>{{ page_title }}</h1>
-  <p><a href="{% url 'core:assignment_create' %}">Add assignment</a></p>
+  {# added for Oct 21 lecture: send anonymous visitors through login before adding. #}
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'core:assignment_create' %}">Add assignment</a></p>
+  {% else %}
+    {% url 'core:assignment_create' as create_url %}
+    <p><a href="{% url 'login' %}?next={{ create_url|urlencode }}">Log in to add an assignment</a></p>
+  {% endif %}
   {% include "core/includes/assignment_filters.html" %}
   <p>Showing {{ assignment_count }} assignment{{ assignment_count|pluralize }}.</p>
 

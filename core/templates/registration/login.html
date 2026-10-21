@@ -1,0 +1,37 @@
+{% extends "core/base.html" %}
+{# added for Oct 21 lecture: login page with CSRF protection and a return destination. #}
+
+{% block title %}Log in | CourseHub{% endblock %}
+
+{% block content %}
+  <h1>Log in</h1>
+  <p>Use your CourseHub practice account to add, edit, or delete assignments.</p>
+
+  <form class="assignment-form" method="post" action="{% url 'login' %}" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    {% if form.errors %}
+      <div class="form-errors">
+        <p><strong>Please check your login details.</strong></p>
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }} (required)</label>
+        {{ field }}
+        {% if field.help_text %}
+          <p class="help-text" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</p>
+        {% endif %}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+
+    <div class="form-actions">
+      <button type="submit">Log in</button>
+      <a href="{% url 'core:assignments' %}">Continue browsing</a>
+    </div>
+  </form>
+{% endblock %}

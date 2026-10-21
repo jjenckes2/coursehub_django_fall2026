@@ -28,9 +28,14 @@
     {% else %}
       <p>No description yet.</p>
     {% endif %}
-    <p class="record-actions">
-      <a href="{% url 'core:assignment_update' pk=assignment.pk %}">Edit assignment</a>
-      <a href="{% url 'core:assignment_delete' pk=assignment.pk %}">Delete assignment</a>
-    </p>
+    {# added for Oct 21 lecture: show edit/delete actions only when signed in. #}
+    {% if user.is_authenticated %}
+      <p class="record-actions">
+        <a href="{% url 'core:assignment_update' pk=assignment.pk %}">Edit assignment</a>
+        <a href="{% url 'core:assignment_delete' pk=assignment.pk %}">Delete assignment</a>
+      </p>
+    {% else %}
+      <p><a href="{% url 'login' %}?next={{ request.path|urlencode }}">Log in to make changes</a></p>
+    {% endif %}
   </article>
 {% endblock %}
