@@ -1,3 +1,4 @@
+from django.conf import settings  # added for Oct 26 lecture: use the configured user model.
 from django.db import models
 
 class Assignment(models.Model):
@@ -6,6 +7,8 @@ class Assignment(models.Model):
     due_date = models.DateField()
     completed = models.BooleanField(default=False)
     estimated_minutes = models.PositiveIntegerField(default=30)
+    #add here Oct 26 lecture
 
-    def __str_(self):
+    #for Oct 26 lecture: display assignment titles in the admin.
+    def __str__(self):
         return self.title

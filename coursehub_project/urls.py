@@ -17,10 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views  # added for Oct 21 lecture
 from django.urls import include, path
+from core.auth_views import signup  # added for Oct 26 lecture: public account creation.
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # add new paths for login/logout here
+    # add here for Oct 26 lecture
 
+    # add new paths for login/logout here
+    path(
+        "accounts/login/",  # updated for Oct 26 lecture: match the guide's login URL.
+        auth_views.LoginView.as_view(template_name="registration/login.html"),
+        name="login"
+    ),
+    path("accounts/logout/", auth_views.LogoutView.as_view(),name="logout"),
     path("", include("core.urls"))
 ]

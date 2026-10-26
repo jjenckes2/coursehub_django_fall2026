@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{# added for Oct 21 lecture: login page with CSRF protection and a return destination. #}
+{# added for Oct 21 lecture #}
 
 {% block title %}Log in | CourseHub{% endblock %}
 
@@ -34,4 +34,6 @@
       <a href="{% url 'core:assignments' %}">Continue browsing</a>
     </div>
   </form>
+  {# added for Oct 26 lecture #}
+  <p>New to CourseHub? <a href="{% url 'signup' %}">Create an account</a>.</p>
 {% endblock %}
