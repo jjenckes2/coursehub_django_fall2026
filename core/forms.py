@@ -6,7 +6,7 @@ from .models import Assignment
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
-        fields = ("title", "description", "due_date", "estimated_minutes")
+        fields = ("title", "description", "due_date", "estimated_minutes", "category")
         widgets = {
             "description": forms.Textarea(attrs={"rows": 4}),
             "due_date": forms.DateInput(

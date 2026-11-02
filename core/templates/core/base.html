@@ -9,7 +9,6 @@
   <script src="{% static 'core/js/site.js' %}" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header>
     <p class="site-name">CourseHub</p>
     {% include "core/includes/nav.html" %}
@@ -24,6 +23,9 @@
         {% endfor %}
       </ul>
     {% endif %}
+    {% block site_search %}
+      {% include "core/includes/site_search.html" %}
+    {% endblock %}
     {% block content %}{% endblock %}
   </main>
   <footer>

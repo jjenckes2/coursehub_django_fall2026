@@ -21,6 +21,14 @@
       <dd>{{ assignment.estimated_minutes }} minutes</dd>
       <dt>Status</dt>
       <dd>{% if assignment.completed %}Completed{% else %}Not completed{% endif %}</dd>
+      <dt>Category</dt>
+      <dd>
+        {% if assignment.category %}
+          {{ assignment.category.name }}
+        {% else %}
+          Not assigned
+        {% endif %}
+      </dd>
       {# added for Oct 26 lecture: display the owner or identify earlier unowned records. #}
       <dt>Owner</dt>
       <dd>

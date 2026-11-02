@@ -1,0 +1,6 @@
+<form class="site-search" method="get" action="{% url 'search' %}" role="search">
+  <label for="site-search-q">Search CourseHub</label>
+  <input id="site-search-q" type="search" name="q" maxlength="100"
+         value="{{ request.GET.q|default:'' }}" placeholder="Assignment or category">
+  <button type="submit">Search</button>
+</form>

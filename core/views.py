@@ -83,7 +83,7 @@ def assignment_create(request):
         if form.is_valid():
             # add for Oct 26 lecture
             task = form.save(commit=False)
-            
+            task.owner = request.user
             task.save()
             messages.success(request, "Assignment created.")
             return redirect("core:assignment_detail", pk=task.pk)
@@ -106,7 +106,7 @@ def assignment_create(request):
 @require_http_methods(["GET", "POST"])
 def assignment_update(request, pk):
     # add for Oct 26 lecture:
-    task = get_object_or_404(Assignment, pk=pk)
+    task = get_object_or_404(Assignment, pk=pk, owner=request.user)
     if request.method == "POST":
         form = AssignmentUpdateForm(request.POST, instance=task)
         if form.is_valid():
@@ -132,7 +132,7 @@ def assignment_update(request, pk):
 @require_http_methods(["GET", "POST"])
 def assignment_delete(request, pk):
     # add for Oct 26 lecture
-    task = get_object_or_404(Assignment, pk=pk)
+    task = get_object_or_404(Assignment, pk=pk, owner=request.user)
     if request.method == "POST":
         task.delete()
         messages.success(request, "Assignment deleted.")

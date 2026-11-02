@@ -65,18 +65,6 @@ button {
   border-radius: 0.25rem;
 }
 
-.skip-link {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  transform: translateY(-200%);
-  padding: 0.5rem 1rem;
-  background: #fff;
-  z-index: 10;
-}
-
-.skip-link:focus { transform: translateY(0); }
-
 .assignment-form {
   max-width: 42rem;
 }
@@ -202,3 +190,8 @@ nav {
   outline: 3px solid #111318;
   outline-offset: 3px;
 }
+
+.site-search { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin: 1.5rem 0; }
+.site-search label { font-weight: 700; }
+.site-search input { flex: 1; min-width: 12rem; max-width: 30rem; padding: 0.55rem; font: inherit; }
+.site-search button { padding: 0.55rem 0.9rem; font: inherit; }

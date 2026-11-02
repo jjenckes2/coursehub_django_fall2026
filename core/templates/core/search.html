@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ page_title }} | CourseHub{% endblock %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+  {% if search_form.errors %}
+    {{ search_form.q.errors }}
+  {% elif query %}
+    <p>Results for “{{ query }}”.</p>
+
+    <h2>Assignments ({{ assignment_count }})</h2>
+    <ul>
+      {% for assignment in assignment_results %}
+        <li>
+          <a href="{% url 'core:assignment_detail' assignment.pk %}">{{ assignment.title }}</a>
+          — Due {{ assignment.due_date }}
+          {% if assignment.category %}
+            — Category: {{ assignment.category.name }}
+          {% else %}
+            — Uncategorized
+          {% endif %}
+        </li>
+      {% empty %}
+        <li>No matching assignments.</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Categories ({{ category_count }})</h2>
+    <ul>
+      {% for category in category_results %}
+        <li>{{ category.name }}</li>
+      {% empty %}
+        <li>No matching categories.</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Enter a word from an assignment title, description, or category name.</p>
+  {% endif %}
+{% endblock %}

@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views  # added for Oct 21 lecture
 from django.urls import include, path
 from core.auth_views import signup  # added for Oct 26 lecture: public account creation.
+from core.search_views import search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # add here for Oct 26 lecture
-
+    path("accounts/signup/", signup, name="signup"),
     # add new paths for login/logout here
     path(
         "accounts/login/",  # updated for Oct 26 lecture: match the guide's login URL.
@@ -30,5 +31,8 @@ urlpatterns = [
         name="login"
     ),
     path("accounts/logout/", auth_views.LogoutView.as_view(),name="logout"),
+    path("api/", include("core.api_urls")),
+    path("api-auth/", include("rest_framework.urls")),
+    path("search/", search, name="search"),
     path("", include("core.urls"))
 ]
