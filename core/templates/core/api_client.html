@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }} | CourseHub{% endblock %}
+
+{% block content %}
+  <h1>{{ page_title }}</h1>
+  <p id="api-status" role="status">Loading assignments…</p>
+  <ul id="api-assignment-list"></ul>
+  <script type="module" src="{% static 'core/js/api_client.js' %}"></script>
+{% endblock %}

@@ -1,6 +1,7 @@
 from rest_framework import filters, generics, permissions
 
 from .api_pagination import CourseHubPagination
+from .api_permissions import IsOwnerOrReadOnly
 from .api_serializers import (
     AssignmentFilterSerializer, AssignmentSerializer, CategorySerializer,
 )
@@ -14,9 +15,9 @@ class CategoryListAPI(generics.ListAPIView):
     pagination_class = CourseHubPagination
 
 
-class AssignmentListAPI(generics.ListAPIView):
+class AssignmentListAPI(generics.ListCreateAPIView):
     serializer_class = AssignmentSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
     pagination_class = CourseHubPagination
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     search_fields = ("title", "description", "category__name")
@@ -34,8 +35,11 @@ class AssignmentListAPI(generics.ListAPIView):
             queryset = queryset.filter(completed=values["completed"])
         return queryset
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-class AssignmentDetailAPI(generics.RetrieveAPIView):
+
+class AssignmentDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Assignment.objects.select_related("owner", "category")
     serializer_class = AssignmentSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
