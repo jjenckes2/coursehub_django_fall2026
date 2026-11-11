@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Assignment dashboard | CourseHub{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'insights/grade_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="grade-dashboard">
+  <h1>Assignment Dashboard</h1>
+  <p>Synthetic grades and completion times.</p>
+
+  {% if results %}
+    <section aria-labelledby="averages-heading">
+      <h2 id="averages-heading">Compare assignment averages</h2>
+      {{ average_chart|safe }}
+    </section>
+
+    <section aria-labelledby="histogram-heading">
+      <h2 id="histogram-heading">Explore the grade distribution</h2>
+      <p>Plotly chooses the grade intervals and counts the results in each one.</p>
+      {{ histogram_chart|safe }}
+    </section>
+
+    <section aria-labelledby="scatter-heading">
+      <h2 id="scatter-heading">Compare completion time and grade</h2>
+      <p>Each dot is one result.</p>
+      {{ scatter_chart|safe }}
+    </section>
+
+    <h2>Individual results behind the plots</h2>
+    <table>
+      <caption>Practice results, in assignment and learner order</caption>
+      <thead>
+        <tr>
+          <th scope="col">Assignment</th>
+          <th scope="col">Learner</th>
+          <th scope="col">Grade (%)</th>
+          <th scope="col">Minutes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result in results %}
+          <tr>
+            <th scope="row">{{ result.assignment__title }} (#{{ result.assignment_id }})</th>
+            <td>{{ result.learner_code }}</td>
+            <td>{{ result.grade_percent }}</td>
+            <td>{{ result.actual_minutes }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No demo results yet. Add the sample results and refresh.</p>
+  {% endif %}
+</div>
+{% endblock %}

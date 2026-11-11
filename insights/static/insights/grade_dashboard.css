@@ -1,0 +1,31 @@
+.grade-dashboard section {
+  margin-block: 2.5rem;
+}
+
+.grade-dashboard table {
+  width: 100%;
+  margin-block: 1.5rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.grade-dashboard caption {
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 700;
+}
+
+.grade-dashboard th,
+.grade-dashboard td {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.grade-dashboard thead {
+  background: var(--pale-blue);
+}
+
+.grade-dashboard tbody th {
+  font-weight: 400;
+}

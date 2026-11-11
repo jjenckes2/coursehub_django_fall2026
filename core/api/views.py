@@ -1,11 +1,11 @@
 from rest_framework import filters, generics, permissions
 
-from .api_pagination import CourseHubPagination
-from .api_permissions import IsOwnerOrReadOnly
-from .api_serializers import (
+from .pagination import CourseHubPagination
+from .permissions import IsOwnerOrReadOnly
+from .serializers import (
     AssignmentFilterSerializer, AssignmentSerializer, CategorySerializer,
 )
-from .models import Assignment, Category
+from ..models import Assignment, Category
 
 
 class CategoryListAPI(generics.ListAPIView):

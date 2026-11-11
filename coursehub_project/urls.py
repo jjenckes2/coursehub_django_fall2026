@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views  # added for Oct 21 lecture
 from django.urls import include, path
-from core.api_client_views import api_client
+from core.api.client_views import api_client
 from core.auth_views import signup  # added for Oct 26 lecture: public account creation.
 from core.search_views import search
 
@@ -32,9 +32,10 @@ urlpatterns = [
         name="login"
     ),
     path("accounts/logout/", auth_views.LogoutView.as_view(),name="logout"),
-    path("api/", include("core.api_urls")),
+    path("api/", include("core.api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("search/", search, name="search"),
     path("api-client/", api_client, name="api-client"),
+    path("", include("insights.urls")),
     path("", include("core.urls"))
 ]
